@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "coyotes.dev",
+  "provider_url": "https://coyotes.dev",
+  "title": "coyotes.dev",
+  "author_name": "author_name",
+  "author_url": "https://twitter.com/TODO"
+  "html": "<iframe src='https://example.com/recipes/great-uncle-pawdabbers-pre-tend-ice-cream-showdown/embed.html'></iframe>"
+}
