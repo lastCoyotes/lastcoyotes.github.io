@@ -158,6 +158,8 @@ p {
     left: 120.12px;
     top: 361.5px;
 
+    white-space: nowrap;
+
     font-family: 'Inconsolata';
     font-style: normal;
     font-weight: 700;
