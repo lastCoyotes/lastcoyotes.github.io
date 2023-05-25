@@ -60,7 +60,7 @@ p {
     color: #e3e3e3;
 }
 
-.hoverThis:hover {
+.hoverThis:hover{
     color: #76da84;
   }
 
@@ -86,6 +86,7 @@ p {
 .menu {
     display: flex;
     flex-direction: row;
+    z-index: 1;
     align-items: center;
     padding: 0px;
     gap: 64px;
@@ -100,7 +101,7 @@ p {
     gap: 128px;
 
     height: 720px;
-    width: 100%;
+    /* width: 100%; */
 
     background: #2e2e2e;
 
@@ -112,22 +113,12 @@ p {
     width: 696.38px;
     height: 735px;
 
-
+    
     /* Inside auto layout */
     flex: none;
     order: 1;
     flex-grow: 0;
-
-
-    /* Group 14 */
-
-    position: absolute;
-    width: 696.38px;
-    height: 735px;
-    left: 704.25px;
-    top: -7.5px;
-
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    /* filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); */
 }
 
 .titleCardText {
