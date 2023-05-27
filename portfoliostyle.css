@@ -23,7 +23,7 @@ a:active { text-decoration: none; }
 h1 {
     font-family: 'Inconsolata', monospace;
     font-size: 2em;
-    color: #e3e3e3;
+    color: rgb(227, 227, 227);
 }
 
 h2 {
@@ -86,6 +86,7 @@ p {
 
 .headTitle {
     order: 0;
+    padding: 14px 16px;
 }
 
 .menu .icon {
@@ -140,6 +141,7 @@ p {
   }
 
 .landing {
+    font-size: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -200,7 +202,7 @@ p {
     font-family: 'Inconsolata', monospace;
     font-style: normal;
     font-weight: 900;
-    font-size: 64px;
+    font-size: 3em;
 
     color: #76DA84;
 }
@@ -219,7 +221,7 @@ p {
     font-family: 'Inconsolata';
     font-style: normal;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 1.75em;
     /* line-height: 42px; */
     /* identical to box height */
 
@@ -228,7 +230,7 @@ p {
 
 .blurbText {
 /* Lorem Ipsum */
-
+    flex-wrap: wrap;
     /* position: absolute; */
     /* width: 448px;
     height: 21px;
@@ -238,7 +240,7 @@ p {
     font-family: 'Inconsolata';
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 0.8em;
     /* line-height: 42px; */
     /* identical to box height */
 
@@ -257,6 +259,7 @@ p {
     padding: 2%;
     /* padding: 64px 120px; */
     /* gap: 64px; */
+    row-gap: 16px;
     flex-wrap: wrap;
     /*width: 100%;*/
     min-height: 192px;
@@ -292,4 +295,20 @@ p {
     align-items: center;
     padding: 0px;
     gap: 16px;
+}
+
+.filterWhite {
+    filter: brightness(0) saturate(100%) invert(98%) sepia(91%) saturate(0%) hue-rotate(112deg) brightness(89%) contrast(100%);
+}
+
+.filterGreen {
+    filter: brightness(0) saturate(100%) invert(83%) sepia(10%) saturate(1734%) hue-rotate(73deg) brightness(93%) contrast(90%);
+}
+
+.yip {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    row-gap: 8px;
 }

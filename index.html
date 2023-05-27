@@ -25,19 +25,34 @@
             </div>
             <div class="menu" id="menuNav">
                 <a href="files/resume.pdf"><h3 class="hoverThis">Resume</h3></a>
-                <a><h3 class="hoverThis">About</h3></a>
+                <!-- <a><h3 class="hoverThis">About</h3></a>
                 <a><h3 class="hoverThis">Projects</h3></a>
                 <a href="javascript:void(0);" class="icon" onclick="responsiveMenu()">
                     <i id="itIsWhatItIs" class="fa fa-bars"></i>
-                </a>
+                </a> -->
             </div>
         </div>
 
         <div class="landing">
                 <div class="titleCardText">
-                    <h1 class="nameText">lastCoyotes</h1>
-                    <h3 class="sde">Software Developer</h3>
-                    <p class="blurbText">testing testing testing</p>
+                    <h1 class="nameText" id="codeSwitch">Hi there.</h1>
+                    <h3 class="sde"></h3>
+                    <p class="blurbText">
+                        <br>
+                        My name is <span id="nameSwitch">Tristan Boler</span> and I've recently<br>
+                        completed a Bachelor of Science—majoring in<br>
+                        Computer Science and minoring in Art Studio.<br>
+                        I have a passion for technology and design<br>
+                        focusing on software development, machine<br>
+                        learning, cybersecurity/pentesting, and UI/UX.<br>
+                        <br>
+                        Aside from my love of computers, I have an<br>
+                        interest in printmaking, painting, pottery,<br>
+                        machining, math, and mechanical engineering.<br>
+
+                    </p>
+                    
+
                 </div>
                 
                 <div class="landingImages">
@@ -54,7 +69,7 @@
 
             <div class="contacts">
                 <div class="entry">
-                    <img src="img/mailicon.svg">
+                    <img src="img/mailicon.svg" style="width:33px">
                     <a href="mailto: taboler@coyotes.dev"><h2 class="hoverThis">taboler@coyotes.dev</h2></a>
                 </div>
                 <div class="entry">
@@ -67,12 +82,15 @@
             </div>
         </div>
 
+        <div class="yip">
+            <img onclick="yap(this)" onmouseover="yoteHover(this)" onmouseleave="yoteRevert(this)" src="img/yote.svg" style="width:32px;" class="yote filterWhite">
+        </div>
     </body>
     <script>
         function responsiveMenu() {
             var x = document.getElementById("menuNav");
-            var y = document.getElementById("headTitle")
-            var z = document.getElementById("itIsWhatItIs")
+            var y = document.getElementById("headTitle");
+            var z = document.getElementById("itIsWhatItIs");
             if (x.className === "menu") {
                 x.className += " responsive";
                 y.className += " responsive";
@@ -82,6 +100,29 @@
                 y.className = "headTitle hoverThis";
                 z.className = "fa fa-bars";
             }
+        }
+
+        function yap(x) {
+            var c = document.getElementById("codeSwitch");
+            var d = document.getElementById("nameSwitch")
+            if (c.innerHTML === "Hi there.") {
+                c.innerHTML = "Yap!";
+            } else {
+                c.innerHTML = "Hi there.";
+            }
+            if (d.innerText === 'Tristan Boler') {
+                d.innerText = "Lake";
+            } else {
+                d.innerText = "Tristan Boler"
+            }
+        }
+
+        function yoteHover(x) {
+            x.className = "yote filterGreen";
+        }
+
+        function yoteRevert(x) {
+            x.className = "yote filterWhite";
         }
 
     </script>
