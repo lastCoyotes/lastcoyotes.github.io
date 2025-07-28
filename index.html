@@ -160,7 +160,7 @@
                         * mix( smoothstep(.1,.7,sin(p.x+cos(p.y)*cos(p.z))*sin(p.z+sin(p.y)*cos(p.x+e))), 
                             .0, .01/t/t ) 
                         * smoothstep(5., 0., t)
-                        * (.5 + cos(y*3. + vec4(0,1,2,0)));
+                        * (.125 + cos(y*3. + vec4(0,1,2,0)));
             }
         `;
 
