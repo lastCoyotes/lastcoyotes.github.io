@@ -32,31 +32,18 @@
                 </a> -->
             </div>
         </div>
+        
+        <canvas id="webGLCanvas" width="100%" height="100%" position="absolute" z-index="-1"></canvas>
 
         <div class="landing">
                 <div class="titleCardText">
-                    <h1 class="nameText" id="codeSwitch">Hi there.</h1>
+                    <p class="blurbText" id="codeSwitch" style="color:76DA84">Hi, I'm</p>
+                    <br>
                     <h3 class="sde"></h3>
-                    <p class="blurbText">
-                        <br>
-                        My name is <span id="nameSwitch">Tristan Boler</span> and I've recently<br>
-                        completed a Bachelor of Science—majoring in<br>
-                        Computer Science and minoring in Art Studio.<br>
-                        I have a passion for technology and design<br>
-                        focusing on software development, machine<br>
-                        learning, cybersecurity/pentesting, and UI/UX.<br>
-                        <br>
-                        Aside from my love of computers, I have an<br>
-                        interest in printmaking, painting, pottery,<br>
-                        machining, math, and mechanical engineering.<br>
-
+                    <p class="nameText">
+                        <span id="nameSwitch">Tristan Boler</span>
                     </p>
-                    
-
-                </div>
-                
-                <div class="landingImages">
-                    <img class="sona" src="img/stackedImageFurry.png">
+                    <p style="color:76DA84; font-size:1em">Developer, Artist, Engineer</p>
                 </div>
         </div>
 
@@ -82,7 +69,7 @@
             </div>
         </div>
 
-        <div class="yip">
+        <div class="yip, footer">
             <img onclick="yap(this)" onmouseover="yoteHover(this)" onmouseleave="yoteRevert(this)" src="img/yote.svg" style="width:32px;" class="yote filterWhite">
         </div>
     </body>
@@ -105,13 +92,13 @@
         function yap(x) {
             var c = document.getElementById("codeSwitch");
             var d = document.getElementById("nameSwitch")
-            if (c.innerHTML === "Hi there.") {
-                c.innerHTML = "Yap!";
+            if (c.innerHTML === "Hi, I'm") {
+                c.innerHTML = "Yap! I'm";
             } else {
-                c.innerHTML = "Hi there.";
+                c.innerHTML = "Hi, I'm";
             }
             if (d.innerText === 'Tristan Boler') {
-                d.innerText = "Lake";
+                d.innerText = "@lastCoyotes";
             } else {
                 d.innerText = "Tristan Boler"
             }
@@ -124,6 +111,154 @@
         function yoteRevert(x) {
             x.className = "yote filterWhite";
         }
+
+        const canvas = document.getElementById('webGLCanvas');
+        const gl = canvas.getContext('webgl2');
+
+        
+        const vertexShaderSource = `#version 300 es
+            precision highp float;
+
+            in vec4 position;
+            void main() {
+                gl_Position = position;
+            }
+        `;
+
+        const fragmentShaderSource = `#version 300 es
+            precision highp float;
+
+            out vec4 fragColor;
+            uniform float iTime;
+            uniform vec3 iResolution;
+            uniform sampler2D iChannel3;
+            void mainImage(out vec4 fragColor, in vec2 fragCoord);
+
+            void main() {
+                mainImage(fragColor, gl_FragCoord.xy);
+            }
+
+            void mainImage(out vec4 H, vec2 F) {  
+
+            vec3    C              = iResolution, p;
+            float     o            , 
+                        y          , 
+                        O        , 
+                            t      , 
+                            e    = iTime;
+
+            for (O *= o; o++ < 44.     ;)
+
+                p = y * normalize(vec3(F+F-C.xy, C.y)),
+                
+                p.z -= 2., t = length(p), p /= t*.1,
+                
+                p.xz *= mat2(cos(e*.2 + vec4(0,33,11,0))),
+                y += O = min(t - .01, texture(iChannel3, F/1024.).t*.1) + .1,
+                
+                H += .05 / (.4 + O) 
+                        * mix( smoothstep(.1,.7,sin(p.x+cos(p.y)*cos(p.z))*sin(p.z+sin(p.y)*cos(p.x+e))), 
+                            .0, .01/t/t ) 
+                        * smoothstep(5., 0., t)
+                        * (.5 + cos(y*3. + vec4(0,1,2,0)));
+            }
+        `;
+
+
+        if (!gl) {
+            alert("WebGL2 is not supported in this browser. Unable to proceed.");
+        } else {
+            function createShader(type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.error('Shader compilation error:', gl.getShaderInfoLog(shader));
+                    return null;
+                }
+                return shader;
+            }
+        }
+
+        function createProgram(vertexSource, fragmentSource) {
+            const vertexShader = createShader(gl.VERTEX_SHADER, vertexSource);
+            const fragmentShader = createShader(gl.FRAGMENT_SHADER, fragmentSource);
+            if (!vertexShader || !fragmentShader) {
+                return null;
+            }
+            
+            const program = gl.createProgram();
+            gl.attachShader(program, vertexShader);
+            gl.attachShader(program, fragmentShader);
+
+            gl.linkProgram(program);
+
+            if(!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                console.error('Program linking error:',gl.getProgramInfoLog(program));
+                return null;
+            }
+
+            gl.deleteShader(vertexShader);
+            gl.deleteShader(fragmentShader);
+
+            return program;
+        }
+
+        const shaderProgram = createProgram(vertexShaderSource, fragmentShaderSource);
+
+        gl.useProgram(shaderProgram);
+
+        const vertices = new Float32Array([
+            -1, -1, // bottom left
+             1, -1, // bottom right
+            -1,  1, // top left
+             1,  1, // top right
+        ]);
+
+        const vertexBuffer = gl.createBuffer();
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+        const positionLocation = gl.getAttribLocation(shaderProgram, 'position');
+        gl.enableVertexAttribArray(positionLocation);
+
+        gl.vertexAttribPointer(
+            positionLocation,   // index of attribute in the shader
+            2,                  // number of components per vertex
+            gl.FLOAT,           // data type in the buffer
+            false,              // dont normalize the data
+            0,                  // stride: 0 means use the vertex data type
+            0                   // offset: 0 start reading from the start of the buffer
+        );
+
+        const timeLocation = gl.getUniformLocation(shaderProgram, 'iTime');
+        const resolutionLocation = gl.getUniformLocation(shaderProgram, 'iResolution');
+        const begin = performance.now();
+
+        function drawShader(now) {
+            const iTime = (now-begin) * 0.001;
+            
+            const displayWidth = canvas.clientWidth;
+            const displayHeight = canvas.clientHeight;
+            // Set the internal size to match the display size
+            if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+                canvas.width = displayWidth;
+                canvas.height = displayHeight;
+            }
+            const width = canvas.clientWidth;
+            const height = canvas.clientHeight;
+
+            gl.viewport(0, 0, width, height);
+            gl.uniform1f(timeLocation, iTime);
+            gl.uniform3f(resolutionLocation, width, height, 1);
+
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        
+            requestAnimationFrame(drawShader);
+        }
+
+        requestAnimationFrame(drawShader);
 
     </script>
 </html>

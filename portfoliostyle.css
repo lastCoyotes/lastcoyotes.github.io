@@ -153,7 +153,6 @@ p {
     min-height: 720px;
     max-width: 100%;
 
-    background: #2e2e2e;
 
     
 }
@@ -240,7 +239,7 @@ p {
     font-family: 'Inconsolata';
     font-style: normal;
     font-weight: 400;
-    font-size: 0.8em;
+    font-size: 1.5em;
     /* line-height: 42px; */
     /* identical to box height */
 
@@ -311,4 +310,14 @@ p {
     align-items: center;
     justify-content: space-around;
     row-gap: 8px;
+}
+
+#webGLCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none; /* Optional: prevents canvas from intercepting clicks */
 }
